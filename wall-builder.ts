@@ -81,8 +81,8 @@ function buildWallSegment(centerPos: any, radius: number, height: number, xDir: 
     if (currentIndex === -1) return
 
     // 正六角形の頂点を計算（60度間隔で6つの頂点）
-    let currentAngle = currentIndex * 60 * Math.PI / 180  // 度をラジアンに変換
-    let nextAngle = ((currentIndex + 1) % 6) * 60 * Math.PI / 180
+    let currentAngle = currentIndex * 60 * 3.14159 / 180  // 度をラジアンに変換
+    let nextAngle = ((currentIndex + 1) % 6) * 60 * 3.14159 / 180
 
     // 正六角形の頂点座標を計算
     let startX = Math.round(radius * Math.sin(currentAngle))
