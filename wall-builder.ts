@@ -1,3 +1,6 @@
+// 数学定数の定義
+const PI = 3.14159265359
+
 player.onChat("setup", function () {
     player.say("Builder setup started")
     builder.teleportTo(player.position())
@@ -81,8 +84,8 @@ function buildWallSegment(centerPos: any, radius: number, height: number, xDir: 
     if (currentIndex === -1) return
 
     // 正六角形の頂点を計算（60度間隔で6つの頂点）
-    let currentAngle = currentIndex * 60 * 3.14159 / 180  // 度をラジアンに変換
-    let nextAngle = ((currentIndex + 1) % 6) * 60 * 3.14159 / 180
+    let currentAngle = currentIndex * 60 * PI / 180  // 度をラジアンに変換
+    let nextAngle = ((currentIndex + 1) % 6) * 60 * PI / 180
 
     // 正六角形の頂点座標を計算
     let startX = Math.round(radius * Math.sin(currentAngle))
