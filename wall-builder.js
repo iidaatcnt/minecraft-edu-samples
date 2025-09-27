@@ -41,7 +41,7 @@ player.onChat("wall", function (num1, num2) {
     buildWallDirections(centerPos, radius, height, directions, 0)
 })
 
-function buildWallDirections(centerPos: Position, radius: number, height: number, directions: any[], dirIndex: number) {
+function buildWallDirections(centerPos, radius, height, directions, dirIndex) {
     if (dirIndex >= directions.length) {
         player.say("Wall Area construction complete!")
         player.say("Octagonal wall built with radius: " + radius + " blocks")
@@ -60,28 +60,29 @@ function buildWallDirections(centerPos: Position, radius: number, height: number
     buildWallDirections(centerPos, radius, height, directions, dirIndex + 1)
 }
 
-function buildWallSegment(centerPos: Position, radius: number, height: number, xDir: number, zDir: number) {
-    // 各方向について、中心から外側に向かって線を引く
-    let segmentLength = Math.round(radius * 0.7) // 8角形の辺の長さ調整
+function buildWallSegment(centerPos, radius, height, xDir, zDir) {
+    // 8角形の辺の長さを計算
+    let isDiagonal = (xDir != 0 && zDir != 0)
+    let segmentLength = isDiagonal ? Math.round(radius * 0.4) : Math.round(radius * 0.6)
 
     for (let i = -segmentLength; i <= segmentLength; i++) {
-        // 外壁の位置
-        let outerX = xDir * radius + (zDir * i)
-        let outerZ = zDir * radius + (xDir * i)
+        // 壁の位置を計算
+        let wallX, wallZ
 
-        // 内壁の位置（1ブロック内側）
-        let innerX = xDir * (radius - 1) + (zDir * i)
-        let innerZ = zDir * (radius - 1) + (xDir * i)
+        if (isDiagonal) {
+            // 対角線方向：両方向に移動
+            wallX = xDir * radius + (zDir * i * 0.3)
+            wallZ = zDir * radius + (xDir * i * 0.3)
+        } else {
+            // 直交方向：垂直に移動
+            wallX = xDir * radius + (zDir * i)
+            wallZ = zDir * radius + (xDir * i)
+        }
 
         // 高さ分のブロックを配置
         for (let y = 0; y < height; y++) {
-            // 外壁
-            let outerPos = positions.add(centerPos, pos(outerX, y, outerZ))
-            blocks.place(COBBLESTONE, outerPos)
-
-            // 内壁
-            let innerPos = positions.add(centerPos, pos(innerX, y, innerZ))
-            blocks.place(COBBLESTONE, innerPos)
+            let wallPos = positions.add(centerPos, pos(Math.round(wallX), y, Math.round(wallZ)))
+            blocks.place(COBBLESTONE, wallPos)
         }
     }
 }
