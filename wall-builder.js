@@ -2,7 +2,7 @@ player.onChat("setup", function () {
     player.say("Builder setup started")
     builder.teleportTo(player.position())
     player.say("Builder ready for wall construction")
-    player.say("Position locked at: " + builder.position().x + ", " + builder.position().y + ", " + builder.position().z)
+    player.say("Position locked - ready to build!")
 })
 
 player.onChat("wall", function (num1, num2) {
@@ -44,7 +44,7 @@ player.onChat("wall", function (num1, num2) {
 function buildWallSections(centerPos: Position, radius: number, height: number, sections: any[], sectionIndex: number) {
     if (sectionIndex >= sections.length) {
         player.say("Wall Area construction complete!")
-        player.say("Total circumference: " + Math.round(2 * Math.PI * radius) + " blocks")
+        player.say("Total circumference: " + Math.round(2 * 3.14159 * radius) + " blocks")
         return
     }
 
@@ -65,24 +65,24 @@ function buildWallSection(centerPos: Position, radius: number, height: number, s
 
     for (let angle = startAngle; angle < endAngle; angle += angleStep) {
         // 角度を弧度法に変換
-        let radian = angle * Math.PI / 180
+        let radian = angle * 3.14159 / 180
 
-        // 円周上の座標を計算
-        let x = Math.round(centerPos.x + radius * Math.cos(radian))
-        let z = Math.round(centerPos.z + radius * Math.sin(radian))
+        // 円周上の座標を計算（positions.add使用）
+        let offsetX = Math.round(radius * Math.cos(radian))
+        let offsetZ = Math.round(radius * Math.sin(radian))
 
         // 高さ分のブロックを配置
         for (let y = 0; y < height; y++) {
-            let blockPos = pos(x, centerPos.y + y, z)
+            let blockPos = positions.add(centerPos, pos(offsetX, y, offsetZ))
             blocks.place(COBBLESTONE, blockPos)
         }
 
         // 内側にも1ブロック厚く建築（厚さ2ブロック）
-        let innerX = Math.round(centerPos.x + (radius - 1) * Math.cos(radian))
-        let innerZ = Math.round(centerPos.z + (radius - 1) * Math.sin(radian))
+        let innerOffsetX = Math.round((radius - 1) * Math.cos(radian))
+        let innerOffsetZ = Math.round((radius - 1) * Math.sin(radian))
 
         for (let y = 0; y < height; y++) {
-            let innerBlockPos = pos(innerX, centerPos.y + y, innerZ)
+            let innerBlockPos = positions.add(centerPos, pos(innerOffsetX, y, innerOffsetZ))
             blocks.place(COBBLESTONE, innerBlockPos)
         }
     }
