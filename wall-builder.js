@@ -41,7 +41,7 @@ player.onChat("wall", function (num1, num2) {
     buildWallDirections(centerPos, radius, height, directions, 0)
 })
 
-function buildWallDirections(centerPos, radius, height, directions, dirIndex) {
+function buildWallDirections(centerPos: any, radius: number, height: number, directions: any[], dirIndex: number) {
     if (dirIndex >= directions.length) {
         player.say("Wall Area construction complete!")
         player.say("Octagonal wall built with radius: " + radius + " blocks")
@@ -60,7 +60,7 @@ function buildWallDirections(centerPos, radius, height, directions, dirIndex) {
     buildWallDirections(centerPos, radius, height, directions, dirIndex + 1)
 }
 
-function buildWallSegment(centerPos, radius, height, xDir, zDir) {
+function buildWallSegment(centerPos: any, radius: number, height: number, xDir: number, zDir: number) {
     // 8角形の辺の長さを計算
     let isDiagonal = (xDir != 0 && zDir != 0)
     let segmentLength = isDiagonal ? Math.round(radius * 0.4) : Math.round(radius * 0.6)
