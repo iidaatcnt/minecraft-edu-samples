@@ -61,23 +61,50 @@ function buildWallDirections(centerPos: any, radius: number, height: number, dir
 }
 
 function buildWallSegment(centerPos: any, radius: number, height: number, xDir: number, zDir: number) {
-    // 8角形の辺の長さを計算
-    let isDiagonal = (xDir != 0 && zDir != 0)
-    let segmentLength = isDiagonal ? Math.round(radius * 0.4) : Math.round(radius * 0.6)
+    // 8角形の各辺を正確に計算
+    // 現在の方向のインデックスを求める
+    let directions = [
+        {xDir: 0, zDir: -1},   // North
+        {xDir: 1, zDir: -1},   // Northeast
+        {xDir: 1, zDir: 0},    // East
+        {xDir: 1, zDir: 1},    // Southeast
+        {xDir: 0, zDir: 1},    // South
+        {xDir: -1, zDir: 1},   // Southwest
+        {xDir: -1, zDir: 0},   // West
+        {xDir: -1, zDir: -1}   // Northwest
+    ]
 
-    for (let i = -segmentLength; i <= segmentLength; i++) {
-        // 壁の位置を計算
-        let wallX, wallZ
-
-        if (isDiagonal) {
-            // 対角線方向：両方向に移動
-            wallX = xDir * radius + (zDir * i * 0.3)
-            wallZ = zDir * radius + (xDir * i * 0.3)
-        } else {
-            // 直交方向：垂直に移動
-            wallX = xDir * radius + (zDir * i)
-            wallZ = zDir * radius + (xDir * i)
+    let currentIndex = -1
+    for (let i = 0; i < directions.length; i++) {
+        if (directions[i].xDir === xDir && directions[i].zDir === zDir) {
+            currentIndex = i
+            break
         }
+    }
+
+    if (currentIndex === -1) return
+
+    // 現在の辺の開始点と終了点を計算
+    let nextIndex = (currentIndex + 1) % directions.length
+    let currentDir = directions[currentIndex]
+    let nextDir = directions[nextIndex]
+
+    // 8角形の頂点を計算
+    let startX = currentDir.xDir * radius
+    let startZ = currentDir.zDir * radius
+    let endX = nextDir.xDir * radius
+    let endZ = nextDir.zDir * radius
+
+    // 辺の長さを計算
+    let deltaX = endX - startX
+    let deltaZ = endZ - startZ
+    let segmentLength = Math.max(Math.abs(deltaX), Math.abs(deltaZ))
+
+    // 辺を描画
+    for (let i = 0; i <= segmentLength; i++) {
+        let t = segmentLength > 0 ? i / segmentLength : 0
+        let wallX = startX + deltaX * t
+        let wallZ = startZ + deltaZ * t
 
         // 高さ分のブロックを配置
         for (let y = 0; y < height; y++) {
