@@ -26,15 +26,13 @@ player.onChat("wall", function (num1, num2) {
     // エージェントの位置を中心点として固定
     let centerPos = builder.position()
 
-    // 8方向の壁を建築（8角形近似）
+    // 6方向の壁を建築（6角形）
     let directions = [
         {name: "North", xDir: 0, zDir: -1},
         {name: "Northeast", xDir: 1, zDir: -1},
-        {name: "East", xDir: 1, zDir: 0},
         {name: "Southeast", xDir: 1, zDir: 1},
         {name: "South", xDir: 0, zDir: 1},
         {name: "Southwest", xDir: -1, zDir: 1},
-        {name: "West", xDir: -1, zDir: 0},
         {name: "Northwest", xDir: -1, zDir: -1}
     ]
 
@@ -44,12 +42,12 @@ player.onChat("wall", function (num1, num2) {
 function buildWallDirections(centerPos: any, radius: number, height: number, directions: any[], dirIndex: number) {
     if (dirIndex >= directions.length) {
         player.say("Wall Area construction complete!")
-        player.say("Octagonal wall built with radius: " + radius + " blocks")
+        player.say("Hexagonal wall built with radius: " + radius + " blocks")
         return
     }
 
     let direction = directions[dirIndex]
-    player.say("Building Wall Section " + (dirIndex + 1) + "/8: " + direction.name)
+    player.say("Building Wall Section " + (dirIndex + 1) + "/6: " + direction.name)
 
     // 各方向の壁セグメントを建築
     buildWallSegment(centerPos, radius, height, direction.xDir, direction.zDir)
@@ -61,16 +59,14 @@ function buildWallDirections(centerPos: any, radius: number, height: number, dir
 }
 
 function buildWallSegment(centerPos: any, radius: number, height: number, xDir: number, zDir: number) {
-    // 8角形の各辺を正確に計算
+    // 6角形の各辺を正確に計算
     // 現在の方向のインデックスを求める
     let directions = [
         {xDir: 0, zDir: -1},   // North
         {xDir: 1, zDir: -1},   // Northeast
-        {xDir: 1, zDir: 0},    // East
         {xDir: 1, zDir: 1},    // Southeast
         {xDir: 0, zDir: 1},    // South
         {xDir: -1, zDir: 1},   // Southwest
-        {xDir: -1, zDir: 0},   // West
         {xDir: -1, zDir: -1}   // Northwest
     ]
 
@@ -84,16 +80,15 @@ function buildWallSegment(centerPos: any, radius: number, height: number, xDir: 
 
     if (currentIndex === -1) return
 
-    // 現在の辺の開始点と終了点を計算
-    let nextIndex = (currentIndex + 1) % directions.length
-    let currentDir = directions[currentIndex]
-    let nextDir = directions[nextIndex]
+    // 正六角形の頂点を計算（60度間隔で6つの頂点）
+    let currentAngle = currentIndex * 60 * Math.PI / 180  // 度をラジアンに変換
+    let nextAngle = ((currentIndex + 1) % 6) * 60 * Math.PI / 180
 
-    // 8角形の頂点を計算
-    let startX = currentDir.xDir * radius
-    let startZ = currentDir.zDir * radius
-    let endX = nextDir.xDir * radius
-    let endZ = nextDir.zDir * radius
+    // 正六角形の頂点座標を計算
+    let startX = Math.round(radius * Math.sin(currentAngle))
+    let startZ = Math.round(radius * -Math.cos(currentAngle))  // Minecraftでは-Z方向が北
+    let endX = Math.round(radius * Math.sin(nextAngle))
+    let endZ = Math.round(radius * -Math.cos(nextAngle))
 
     // 辺の長さを計算
     let deltaX = endX - startX
