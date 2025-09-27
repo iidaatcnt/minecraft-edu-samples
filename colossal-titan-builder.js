@@ -105,18 +105,31 @@ player.onChat("colossal", function () {
     player.say("Height 60 blocks")
 })
 
-player.onChat("army", function () {
-    player.say("Building Titan Army")
+player.onChat("army", function (num1) {
+    // 引数の処理（デフォルト値5、最大30）
+    let count = num1 || 5
 
-    builder.teleportTo(player.position())
-    builder.move(UP, 10)
+    // 最大値チェック
+    if (count > 30) {
+        player.say("Error: Maximum titan count is 30")
+        player.say("Too many titans can crash the game!")
+        return
+    }
 
+    if (count < 1) {
+        player.say("Error: Minimum titan count is 1")
+        return
+    }
+
+    player.say("Building Titan Army (" + count + " titans)")
+
+    // setup_colossalで設定した高さを使用
     armyBasePos = builder.position()
 
-    for (let i = 0; i < titanCount; i++) {
+    for (let i = 0; i < count; i++) {
         player.say("Building titan " + (i + 1))
 
-        xOffset = (i - 2) * spacing
+        xOffset = (i - Math.floor(count / 2)) * spacing
         zOffset = (i % 2 == 0) ? 0 : staggerOffset
 
         titanPos = positions.add(armyBasePos, pos(xOffset, 0, zOffset))
@@ -126,7 +139,7 @@ player.onChat("army", function () {
         loops.pause(1000)
     }
 
-    player.say("Titan Army complete")
+    player.say("Titan Army complete (" + count + " titans built)")
 })
 
 function buildSimpleTitan(titanBase: Position) {
@@ -260,7 +273,7 @@ let xOffset = 0
 let steamCount = 8
 let bodySteam = 5
 let armSteam = 3
-let titanCount = 5
+// titanCount is now passed as parameter to army command
 let spacing = 25
 let staggerOffset = 12
 let quickSteam = 3
