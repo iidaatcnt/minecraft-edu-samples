@@ -3,49 +3,75 @@
 
 def draw_hummingbird():
     """ハチドリ - ナスカの地上絵で最も有名な図柄（200×200ブロック）"""
-    player.say("§6超巨大なハチドリを描きます（200×200）...")
+    player.say("§6本物のナスカのハチドリを描きます（200×200）...")
 
-    # 地面を平らにする（白い砂漠を作る）
+    # 地面を平らにする（ナスカ砂漠を再現）
     player.execute("fill ~-100 ~-1 ~-100 ~100 ~-1 ~100 sandstone")
 
-    # ハチドリの本体（黒曜石で描画）
-    # 胴体（中央の太い部分）
-    player.execute("fill ~-40 ~ ~-10 ~40 ~ ~10 obsidian")
-    player.execute("fill ~-35 ~ ~-12 ~35 ~ ~12 obsidian")
+    # ナスカの線画スタイル（線の太さ3-4ブロック）
 
-    # 頭部
-    player.execute("fill ~41 ~ ~-6 ~60 ~ ~6 obsidian")
-    player.execute("fill ~55 ~ ~-4 ~65 ~ ~4 obsidian")
+    # 長いくちばし（左に向かって伸びる）
+    player.execute("fill ~-100 ~ ~-2 ~-40 ~ ~2 red_sandstone")
+    player.execute("fill ~-100 ~ ~-1 ~-45 ~ ~1 red_sandstone")
 
-    # くちばし（超長い - ハチドリの特徴）
-    player.execute("fill ~66 ~ ~-2 ~95 ~ ~2 obsidian")
-    player.execute("fill ~96 ~ ~-1 ~100 ~ ~1 obsidian")
+    # 頭部（小さめ）
+    player.execute("fill ~-40 ~ ~-5 ~-30 ~ ~5 red_sandstone")
+    player.execute("fill ~-35 ~ ~-6 ~-28 ~ ~6 red_sandstone")
 
-    # 上の翼（大きく広げた翼）
-    player.execute("fill ~-20 ~ ~13 ~20 ~ ~16 obsidian")
-    player.execute("fill ~-30 ~ ~17 ~10 ~ ~22 obsidian")
-    player.execute("fill ~-40 ~ ~23 ~0 ~ ~50 obsidian")
-    player.execute("fill ~-35 ~ ~51 ~-10 ~ ~60 obsidian")
-    player.execute("fill ~-30 ~ ~61 ~-15 ~ ~70 obsidian")
-    player.execute("fill ~-25 ~ ~71 ~-20 ~ ~80 obsidian")
+    # 首から胴体へのライン（細い首）
+    player.execute("fill ~-30 ~ ~-3 ~-20 ~ ~3 red_sandstone")
 
-    # 下の翼（対称的に）
-    player.execute("fill ~-20 ~ ~-16 ~20 ~ ~-13 obsidian")
-    player.execute("fill ~-30 ~ ~-22 ~10 ~ ~-17 obsidian")
-    player.execute("fill ~-40 ~ ~-50 ~0 ~ ~-23 obsidian")
-    player.execute("fill ~-35 ~ ~-60 ~-10 ~ ~-51 obsidian")
-    player.execute("fill ~-30 ~ ~-70 ~-15 ~ ~-61 obsidian")
-    player.execute("fill ~-25 ~ ~-80 ~-20 ~ ~-71 obsidian")
+    # 胴体（中央の膨らみ）
+    player.execute("fill ~-20 ~ ~-8 ~10 ~ ~8 red_sandstone")
+    player.execute("fill ~-15 ~ ~-10 ~5 ~ ~10 red_sandstone")
 
-    # 尾羽（広がった美しい尾）
-    player.execute("fill ~-41 ~ ~-4 ~-50 ~ ~4 obsidian")
-    player.execute("fill ~-51 ~ ~-2 ~-70 ~ ~2 obsidian")
-    player.execute("fill ~-71 ~ ~-6 ~-80 ~ ~-2 obsidian")
-    player.execute("fill ~-71 ~ ~2 ~-80 ~ ~6 obsidian")
-    player.execute("fill ~-81 ~ ~-8 ~-90 ~ ~-4 obsidian")
-    player.execute("fill ~-81 ~ ~4 ~-90 ~ ~8 obsidian")
+    # 後部（尾に向かって細くなる）
+    player.execute("fill ~10 ~ ~-5 ~30 ~ ~5 red_sandstone")
+    player.execute("fill ~25 ~ ~-3 ~40 ~ ~3 red_sandstone")
 
-    player.say("§a超巨大ハチドリ完成！空から見てください！")
+    # 上の翼（左斜め上に伸びる長い線）
+    player.execute("fill ~-10 ~ ~8 ~-5 ~ ~12 red_sandstone")
+    player.execute("fill ~-15 ~ ~12 ~-10 ~ ~30 red_sandstone")
+    player.execute("fill ~-20 ~ ~30 ~-15 ~ ~50 red_sandstone")
+    player.execute("fill ~-25 ~ ~50 ~-20 ~ ~70 red_sandstone")
+    player.execute("fill ~-30 ~ ~70 ~-25 ~ ~85 red_sandstone")
+    player.execute("fill ~-35 ~ ~85 ~-30 ~ ~95 red_sandstone")
+
+    # 上の翼（右斜め上に伸びる長い線）
+    player.execute("fill ~5 ~ ~8 ~10 ~ ~12 red_sandstone")
+    player.execute("fill ~10 ~ ~12 ~20 ~ ~25 red_sandstone")
+    player.execute("fill ~20 ~ ~25 ~30 ~ ~40 red_sandstone")
+    player.execute("fill ~30 ~ ~40 ~40 ~ ~55 red_sandstone")
+    player.execute("fill ~40 ~ ~55 ~50 ~ ~70 red_sandstone")
+    player.execute("fill ~50 ~ ~70 ~60 ~ ~80 red_sandstone")
+
+    # 下の翼（左斜め下に伸びる長い線）
+    player.execute("fill ~-10 ~ ~-12 ~-5 ~ ~-8 red_sandstone")
+    player.execute("fill ~-15 ~ ~-30 ~-10 ~ ~-12 red_sandstone")
+    player.execute("fill ~-20 ~ ~-50 ~-15 ~ ~-30 red_sandstone")
+    player.execute("fill ~-25 ~ ~-70 ~-20 ~ ~-50 red_sandstone")
+    player.execute("fill ~-30 ~ ~-85 ~-25 ~ ~-70 red_sandstone")
+    player.execute("fill ~-35 ~ ~-95 ~-30 ~ ~-85 red_sandstone")
+
+    # 下の翼（右斜め下に伸びる長い線）
+    player.execute("fill ~5 ~ ~-12 ~10 ~ ~-8 red_sandstone")
+    player.execute("fill ~10 ~ ~-25 ~20 ~ ~-12 red_sandstone")
+    player.execute("fill ~20 ~ ~-40 ~30 ~ ~-25 red_sandstone")
+    player.execute("fill ~30 ~ ~-55 ~40 ~ ~-40 red_sandstone")
+    player.execute("fill ~40 ~ ~-70 ~50 ~ ~-55 red_sandstone")
+    player.execute("fill ~50 ~ ~-80 ~60 ~ ~-70 red_sandstone")
+
+    # 尾羽（2本に分かれた長い尾）
+    player.execute("fill ~40 ~ ~-2 ~50 ~ ~2 red_sandstone")
+    player.execute("fill ~50 ~ ~-4 ~65 ~ ~0 red_sandstone")
+    player.execute("fill ~65 ~ ~-8 ~80 ~ ~-4 red_sandstone")
+    player.execute("fill ~80 ~ ~-12 ~95 ~ ~-8 red_sandstone")
+
+    player.execute("fill ~50 ~ ~0 ~65 ~ ~4 red_sandstone")
+    player.execute("fill ~65 ~ ~4 ~80 ~ ~8 red_sandstone")
+    player.execute("fill ~80 ~ ~8 ~95 ~ ~12 red_sandstone")
+
+    player.say("§a本物のナスカのハチドリ完成！一筆書きの美しさを再現！")
 
 def draw_monkey():
     """サル - 渦巻き尻尾が特徴的（200×200ブロック）"""
