@@ -1,4 +1,4 @@
-import { world, system, Player, ItemStack, EntityItemComponent, Vector3 } from "@minecraft/server";
+import { world, system, Player, ItemStack, EntityItemComponent } from "@minecraft/server";
 
 // 整地ツールの設定
 const CLEAR_ITEM = "minecraft:stick"; // 木の枝
@@ -13,7 +13,7 @@ const playerCooldowns = new Map<string, number>();
 const COOLDOWN_TICKS = 10; // 0.5秒のクールダウン
 
 // アイテム使用イベントの監視
-world.afterEvents.itemUse.subscribe((event) => {
+world.afterEvents.itemUse.subscribe((event: any) => {
     const player = event.source as Player;
     const item = event.itemStack;
 
@@ -70,7 +70,11 @@ function clearTerrain(player: Player) {
 
                     // 範囲内のブロックを空気に置換
                     try {
-                        dimension.getBlock({ x: blockX, y: blockY, z: blockZ })?.setType("minecraft:air");
+                        const blockLocation = { x: blockX, y: blockY, z: blockZ };
+                        const block = dimension.getBlock(blockLocation);
+                        if (block) {
+                            block.setType("minecraft:air");
+                        }
                     } catch (error) {
                         // ブロックが範囲外の場合は無視
                     }
@@ -79,12 +83,6 @@ function clearTerrain(player: Player) {
         }
 
         // プレイヤーを前方にジャンプさせる
-        const velocity = {
-            x: directionX * JUMP_FORWARD,
-            y: JUMP_POWER,
-            z: directionZ * JUMP_FORWARD
-        };
-
         player.applyKnockback(directionX, directionZ, JUMP_FORWARD, JUMP_POWER);
 
         // エフェクトとメッセージ
@@ -97,7 +95,7 @@ function clearTerrain(player: Player) {
 }
 
 // コマンド登録（オプション）
-world.beforeEvents.chatSend.subscribe((event) => {
+world.beforeEvents.chatSend.subscribe((event: any) => {
     const player = event.sender as Player;
     const message = event.message.toLowerCase();
 
