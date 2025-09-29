@@ -14,13 +14,29 @@ player.onChat("wall", function (num1, num2) {
     let height = num2 || 5
 
     // 範囲チェック
-    if (radius < 10 || radius > 50) {
-        player.say("Error: Radius must be between 10-50 blocks")
+    if (radius < 10) {
+        player.say("エラー: 半径が小さすぎます（最小10ブロック）")
+        player.say("入力値: " + radius + " → 最小値: 10")
         return
     }
 
-    if (height < 3 || height > 20) {
-        player.say("Error: Height must be between 3-20 blocks")
+    if (radius > 100) {
+        player.say("エラー: 半径が大きすぎます（最大100ブロック）")
+        player.say("入力値: " + radius + " → 最大値: 100")
+        player.say("ヒント: 大きな壁を作る場合は複数回に分けて建築してください")
+        return
+    }
+
+    if (height < 3) {
+        player.say("エラー: 高さが低すぎます（最小3ブロック）")
+        player.say("入力値: " + height + " → 最小値: 3")
+        return
+    }
+
+    if (height > 20) {
+        player.say("エラー: 高さが高すぎます（最大20ブロック）")
+        player.say("入力値: " + height + " → 最大値: 20")
+        player.say("ヒント: より高い壁が必要な場合は、上に追加で建築してください")
         return
     }
 
