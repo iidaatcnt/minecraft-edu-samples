@@ -324,25 +324,279 @@ def draw_spiral():
 
     player.say("§aカラフルな巨大渦巻き完成！催眠術みたい！")
 
+def draw_creeper():
+    """クリーパー - マイクラの代表的モンスター（200×200ブロック）"""
+    player.say("§2巨大なクリーパーを描きます（200×200）...")
+
+    # 地面を平らにする（暗い大地）
+    player.execute("fill ~-100 ~-1 ~-100 ~100 ~-1 ~100 black_concrete")
+
+    # クリーパーの体（緑色）
+    # 頭部（正方形）
+    player.execute("fill ~-30 ~ ~40 ~30 ~ ~80 green_concrete")
+    player.execute("fill ~-25 ~ ~35 ~25 ~ ~85 green_concrete")
+
+    # 顔のパーツ（黒い穴）
+    # 目
+    player.execute("fill ~-20 ~ ~65 ~-10 ~ ~75 black_concrete")
+    player.execute("fill ~10 ~ ~65 ~20 ~ ~75 black_concrete")
+
+    # 鼻
+    player.execute("fill ~-5 ~ ~55 ~5 ~ ~65 black_concrete")
+
+    # 口（逆さ'T'字）
+    player.execute("fill ~-15 ~ ~45 ~15 ~ ~50 black_concrete")
+    player.execute("fill ~-5 ~ ~40 ~5 ~ ~55 black_concrete")
+
+    # 胴体（長方形）
+    player.execute("fill ~-25 ~ ~-20 ~25 ~ ~40 green_concrete")
+    player.execute("fill ~-20 ~ ~-25 ~20 ~ ~45 green_concrete")
+
+    # 4本の足
+    player.execute("fill ~-20 ~ ~-60 ~-10 ~ ~-20 green_concrete")
+    player.execute("fill ~10 ~ ~-60 ~20 ~ ~-20 green_concrete")
+    player.execute("fill ~-15 ~ ~-65 ~-5 ~ ~-25 green_concrete")
+    player.execute("fill ~5 ~ ~-65 ~15 ~ ~-25 green_concrete")
+
+    # クリーパーの模様（黒い斑点）
+    for i in range(-80, 81, 20):
+        for j in range(-80, 81, 20):
+            if (i + j) % 40 == 0:
+                player.execute(f"fill ~{i-3} ~ ~{j-3} ~{i+3} ~ ~{j+3} black_concrete")
+
+    player.say("§a巨大クリーパー完成！爆発しそう...！")
+
+def draw_zombie():
+    """ゾンビ - 腕を前に出したポーズ（200×200ブロック）"""
+    player.say("§6巨大なゾンビを描きます（200×200）...")
+
+    # 地面を平らにする（荒れた大地）
+    player.execute("fill ~-100 ~-1 ~-100 ~100 ~-1 ~100 dirt")
+
+    # ゾンビの体（肌色〜緑がかった色）
+    # 頭部
+    player.execute("fill ~-25 ~ ~50 ~25 ~ ~90 lime_terracotta")
+    player.execute("fill ~-20 ~ ~45 ~20 ~ ~95 lime_terracotta")
+
+    # 目（赤く光る）
+    player.execute("fill ~-15 ~ ~70 ~-8 ~ ~77 red_concrete")
+    player.execute("fill ~8 ~ ~70 ~15 ~ ~77 red_concrete")
+
+    # 口（開いた口）
+    player.execute("fill ~-10 ~ ~55 ~10 ~ ~65 black_concrete")
+    player.execute("fill ~-8 ~ ~60 ~8 ~ ~62 white_concrete")
+
+    # 胴体（シャツ - 青っぽい）
+    player.execute("fill ~-20 ~ ~0 ~20 ~ ~50 blue_terracotta")
+    player.execute("fill ~-25 ~ ~5 ~25 ~ ~45 blue_terracotta")
+
+    # 腕（前に伸ばした）
+    # 左腕
+    player.execute("fill ~-50 ~ ~20 ~-25 ~ ~30 lime_terracotta")
+    player.execute("fill ~-60 ~ ~15 ~-50 ~ ~25 lime_terracotta")
+
+    # 右腕
+    player.execute("fill ~25 ~ ~20 ~50 ~ ~30 lime_terracotta")
+    player.execute("fill ~50 ~ ~15 ~60 ~ ~25 lime_terracotta")
+
+    # 足
+    player.execute("fill ~-15 ~ ~-50 ~-5 ~ ~0 brown_concrete")
+    player.execute("fill ~5 ~ ~-50 ~15 ~ ~0 brown_concrete")
+
+    # ズボン（茶色）
+    player.execute("fill ~-18 ~ ~-30 ~18 ~ ~5 brown_terracotta")
+
+    # 破れた服の表現
+    for i in range(-60, 61, 15):
+        player.execute(f"fill ~{i-2} ~ ~{i%30} ~{i+2} ~ ~{i%30+5} black_concrete")
+
+    player.say("§aゾンビ完成！腕を前に出してる！")
+
+def draw_skeleton():
+    """スケルトン - 弓を構えたポーズ（200×200ブロック）"""
+    player.say("§f巨大なスケルトンを描きます（200×200）...")
+
+    # 地面を平らにする（骨の大地）
+    player.execute("fill ~-100 ~-1 ~-100 ~100 ~-1 ~100 bone_block")
+
+    # スケルトンの体（白い骨）
+    # 頭蓋骨
+    player.execute("fill ~-20 ~ ~60 ~20 ~ ~90 white_concrete")
+    player.execute("fill ~-25 ~ ~65 ~25 ~ ~85 white_concrete")
+
+    # 目窩（黒い穴）
+    player.execute("fill ~-15 ~ ~75 ~-8 ~ ~82 black_concrete")
+    player.execute("fill ~8 ~ ~75 ~15 ~ ~82 black_concrete")
+
+    # 鼻の穴
+    player.execute("fill ~-3 ~ ~70 ~3 ~ ~75 black_concrete")
+
+    # 歯（ギザギザ）
+    player.execute("fill ~-12 ~ ~65 ~12 ~ ~68 black_concrete")
+    for i in range(-10, 11, 4):
+        player.execute(f"fill ~{i} ~ ~68 ~{i+2} ~ ~70 white_concrete")
+
+    # 肋骨（胴体）
+    for rib in range(5):
+        y_pos = 40 - rib * 8
+        player.execute(f"fill ~-18 ~ ~{y_pos} ~18 ~ ~{y_pos+3} white_concrete")
+        player.execute(f"fill ~-15 ~ ~{y_pos-2} ~15 ~ ~{y_pos+5} white_concrete")
+
+    # 背骨
+    player.execute("fill ~-2 ~ ~-20 ~2 ~ ~60 white_concrete")
+
+    # 腕（弓を構える）
+    # 左腕（弓を持つ）
+    player.execute("fill ~-45 ~ ~30 ~-20 ~ ~40 white_concrete")
+    # 右腕（弦を引く）
+    player.execute("fill ~20 ~ ~35 ~40 ~ ~45 white_concrete")
+
+    # 弓
+    player.execute("fill ~-50 ~ ~25 ~-48 ~ ~45 brown_concrete")
+    player.execute("fill ~-52 ~ ~27 ~-46 ~ ~29 white_wool")
+    player.execute("fill ~-52 ~ ~41 ~-46 ~ ~43 white_wool")
+
+    # 矢
+    player.execute("fill ~-48 ~ ~34 ~35 ~ ~36 brown_concrete")
+    player.execute("fill ~35 ~ ~33 ~38 ~ ~37 gray_concrete")
+
+    # 足の骨
+    player.execute("fill ~-12 ~ ~-60 ~-8 ~ ~-20 white_concrete")
+    player.execute("fill ~8 ~ ~-60 ~12 ~ ~-20 white_concrete")
+
+    # 足首
+    player.execute("fill ~-15 ~ ~-65 ~-5 ~ ~-60 white_concrete")
+    player.execute("fill ~5 ~ ~-65 ~15 ~ ~-60 white_concrete")
+
+    player.say("§aスケルトン完成！弓矢で狙撃準備！")
+
+def draw_enderman():
+    """エンダーマン - 細長いシルエット（200×200ブロック）"""
+    player.say("§5巨大なエンダーマンを描きます（200×200）...")
+
+    # 地面を平らにする（エンドストーン）
+    player.execute("fill ~-100 ~-1 ~-100 ~100 ~-1 ~100 end_stone")
+
+    # エンダーマンの体（黒）
+    # 頭部（細長い）
+    player.execute("fill ~-15 ~ ~70 ~15 ~ ~95 black_concrete")
+    player.execute("fill ~-12 ~ ~65 ~12 ~ ~100 black_concrete")
+
+    # 目（紫色に光る）
+    player.execute("fill ~-10 ~ ~85 ~-6 ~ ~89 purple_concrete")
+    player.execute("fill ~6 ~ ~85 ~10 ~ ~89 purple_concrete")
+
+    # 胴体（細長い）
+    player.execute("fill ~-10 ~ ~20 ~10 ~ ~70 black_concrete")
+    player.execute("fill ~-8 ~ ~15 ~8 ~ ~75 black_concrete")
+
+    # 腕（長い）
+    # 左腕
+    player.execute("fill ~-35 ~ ~40 ~-15 ~ ~50 black_concrete")
+    player.execute("fill ~-40 ~ ~10 ~-30 ~ ~45 black_concrete")
+
+    # 右腕
+    player.execute("fill ~15 ~ ~40 ~35 ~ ~50 black_concrete")
+    player.execute("fill ~30 ~ ~10 ~40 ~ ~45 black_concrete")
+
+    # 手（ブロックを持っている）
+    player.execute("fill ~-45 ~ ~5 ~-35 ~ ~15 grass_block")
+    player.execute("fill ~35 ~ ~5 ~45 ~ ~15 grass_block")
+
+    # 足（長い）
+    player.execute("fill ~-8 ~ ~-70 ~-4 ~ ~20 black_concrete")
+    player.execute("fill ~4 ~ ~-70 ~8 ~ ~20 black_concrete")
+
+    # テレポートパーティクル効果（紫のブロックで表現）
+    for i in range(-90, 91, 30):
+        for j in range(-90, 91, 30):
+            if (i + j) % 60 == 0:
+                player.execute(f"fill ~{i-2} ~ ~{j-2} ~{i+2} ~ ~{j+2} purple_wool")
+
+    player.say("§aエンダーマン完成！テレポートしそう...")
+
+def draw_pig():
+    """ブタ - かわいい動物（200×200ブロック）"""
+    player.say("§d巨大なブタを描きます（200×200）...")
+
+    # 地面を平らにする（草原）
+    player.execute("fill ~-100 ~-1 ~-100 ~100 ~-1 ~100 grass_block")
+
+    # ブタの体（ピンク）
+    # 頭部
+    player.execute("fill ~-25 ~ ~40 ~25 ~ ~70 pink_concrete")
+    player.execute("fill ~-30 ~ ~45 ~30 ~ ~65 pink_concrete")
+
+    # 鼻（より濃いピンク）
+    player.execute("fill ~-8 ~ ~70 ~8 ~ ~75 pink_terracotta")
+    player.execute("fill ~-6 ~ ~75 ~6 ~ ~78 pink_terracotta")
+
+    # 鼻の穴
+    player.execute("fill ~-4 ~ ~76 ~-2 ~ ~77 black_concrete")
+    player.execute("fill ~2 ~ ~76 ~4 ~ ~77 black_concrete")
+
+    # 目
+    player.execute("fill ~-15 ~ ~55 ~-10 ~ ~60 black_concrete")
+    player.execute("fill ~10 ~ ~55 ~15 ~ ~60 black_concrete")
+
+    # 耳（三角形）
+    player.execute("fill ~-20 ~ ~45 ~-15 ~ ~50 pink_concrete")
+    player.execute("fill ~15 ~ ~45 ~20 ~ ~50 pink_concrete")
+    player.execute("fill ~-18 ~ ~50 ~-17 ~ ~52 pink_concrete")
+    player.execute("fill ~17 ~ ~50 ~18 ~ ~52 pink_concrete")
+
+    # 胴体（太い）
+    player.execute("fill ~-35 ~ ~-20 ~35 ~ ~40 pink_concrete")
+    player.execute("fill ~-40 ~ ~-15 ~40 ~ ~35 pink_concrete")
+
+    # 4本の足（短い）
+    player.execute("fill ~-25 ~ ~-50 ~-15 ~ ~-20 pink_concrete")
+    player.execute("fill ~15 ~ ~-50 ~25 ~ ~-20 pink_concrete")
+    player.execute("fill ~-30 ~ ~-55 ~-20 ~ ~-25 pink_concrete")
+    player.execute("fill ~20 ~ ~-55 ~30 ~ ~-25 pink_concrete")
+
+    # しっぽ（カール）
+    player.execute("fill ~35 ~ ~0 ~45 ~ ~5 pink_concrete")
+    player.execute("fill ~45 ~ ~5 ~50 ~ ~10 pink_concrete")
+    player.execute("fill ~45 ~ ~10 ~40 ~ ~15 pink_concrete")
+
+    player.say("§aブタ完成！かわいい〜！")
+
 def on_help():
     """使い方を表示"""
     player.say("§b=== 超巨大ナスカの地上絵（200×200） ===")
+    player.say("§6== 古代の図柄 ==")
     player.say("§e!bird - ハチドリ")
     player.say("§e!monkey - サル（渦巻き尻尾）")
     player.say("§e!spider - クモ（8本足）")
     player.say("§e!tree - 生命の樹")
     player.say("§e!condor - コンドル（翼を広げた）")
     player.say("§e!spiral - カラフル渦巻き")
+    player.say("§a== Minecraftキャラクター ==")
+    player.say("§2!creeper - クリーパー")
+    player.say("§6!zombie - ゾンビ")
+    player.say("§f!skeleton - スケルトン")
+    player.say("§5!enderman - エンダーマン")
+    player.say("§d!pig - ブタ")
     player.say("§c※200×200の超巨大サイズ！")
     player.say("§a高度Y=150以上から見ることを推奨")
 
 # コマンド登録
+# 古代ナスカの図柄
 player.on_chat("bird", draw_hummingbird)
 player.on_chat("monkey", draw_monkey)
 player.on_chat("spider", draw_spider)
 player.on_chat("tree", draw_tree)
 player.on_chat("condor", draw_condor)
 player.on_chat("spiral", draw_spiral)
+
+# Minecraftキャラクター
+player.on_chat("creeper", draw_creeper)
+player.on_chat("zombie", draw_zombie)
+player.on_chat("skeleton", draw_skeleton)
+player.on_chat("enderman", draw_enderman)
+player.on_chat("pig", draw_pig)
+
 player.on_chat("nazca", on_help)
 
 # 起動メッセージ
