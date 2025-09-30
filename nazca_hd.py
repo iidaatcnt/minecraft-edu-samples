@@ -160,7 +160,8 @@ def draw_hummingbird_hd():
     # === 羽の筋（詳細）===
     # 各翼に細かい筋を追加
     for wing_set in [wing_points_lu, wing_points_ru, wing_points_ld, wing_points_rd]:
-        for i, (x, y) in enumerate(wing_set):
+        for i in range(len(wing_set)):
+            x, y = wing_set[i]
             if i % 2 == 0:  # 2つおきに筋を描画
                 # 翼に垂直な短い線
                 if y > 0:  # 上翼
