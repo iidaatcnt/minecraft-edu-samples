@@ -11,7 +11,7 @@ def draw_hummingbird_hd():
     # === 長大なくちばし（150ブロック）===
     for i in range(0, 150, 2):
         thickness = max(1, 6 - i // 25)
-        player.execute(f"fill ~{-250+i} ~ ~{-thickness} ~{-248+i} ~ ~{thickness} red_sandstone")
+        player.execute(f"fill ~{(-250+i)} ~ ~{(-thickness)} ~{(-248+i)} ~ ~{thickness} red_sandstone")
 
     # === 頭部（円形）===
     center_x = -100
@@ -23,7 +23,7 @@ def draw_hummingbird_hd():
         if i * i <= radius * radius:
             y_offset = radius - abs(i) // 2
             player.execute(f"fill ~{center_x + i - 1} ~ ~{y_offset - 1} ~{center_x + i + 1} ~ ~{y_offset + 1} red_sandstone")
-            player.execute(f"fill ~{center_x + i - 1} ~ ~{-y_offset - 1} ~{center_x + i + 1} ~ ~{-y_offset + 1} red_sandstone")
+            player.execute(f"fill ~{center_x + i - 1} ~ ~{(-y_offset - 1)} ~{center_x + i + 1} ~ ~{(-y_offset + 1)} red_sandstone")
 
     # 目
     player.execute(f"fill ~{center_x - 3} ~ ~-3 ~{center_x + 3} ~ ~3 white_concrete")
@@ -57,7 +57,7 @@ def draw_hummingbird_hd():
         # 楕円を三角形の組み合わせで近似
         y_max = max(0, 20 - abs(x) // 3)
         player.execute(f"fill ~{body_center_x + x - 1} ~ ~{y_max - 1} ~{body_center_x + x + 1} ~ ~{y_max + 1} red_sandstone")
-        player.execute(f"fill ~{body_center_x + x - 1} ~ ~{-y_max - 1} ~{body_center_x + x + 1} ~ ~{-y_max + 1} red_sandstone")
+        player.execute(f"fill ~{body_center_x + x - 1} ~ ~{(-y_max - 1)} ~{body_center_x + x + 1} ~ ~{(-y_max + 1)} red_sandstone")
 
     # === 翼（4方向）===
     # 左上翼
@@ -146,10 +146,10 @@ def draw_hummingbird_ultra():
     # === 超精密くちばし（300ブロック）===
     for i in range(0, 300, 1):
         thickness = max(1, 10 - i // 30)
-        player.execute(f"fill ~{-500+i} ~ ~{-thickness} ~{-498+i} ~ ~{thickness} red_sandstone")
+        player.execute(f"fill ~{(-500+i)} ~ ~{(-thickness)} ~{(-498+i)} ~ ~{thickness} red_sandstone")
 
         if i % 5 == 0:
-            player.execute(f"fill ~{-500+i} ~ ~-1 ~{-499+i} ~ ~1 orange_terracotta")
+            player.execute(f"fill ~{(-500+i)} ~ ~-1 ~{(-499+i)} ~ ~1 orange_terracotta")
 
     # === 超精密頭部（大きな円）===
     center_x = -200
@@ -186,7 +186,7 @@ def draw_hummingbird_ultra():
 
             # 羽の筋
             if step % 8 == 0:
-                player.execute(f"fill ~{x - thickness - 2} ~ ~{y} ~{x + thickness + 2} ~ ~{y + 1} orange_terracotta")
+                player.execute(f"fill ~{(x - thickness - 2)} ~ ~{y} ~{(x + thickness + 2)} ~ ~{y + 1} orange_terracotta")
 
     # 右上翼
     for segment in range(12):
@@ -266,3 +266,7 @@ player.on_chat("nazca_hd", on_help)
 
 player.say("§d=== 超高精細ナスカアート起動！ ===")
 player.say("§aMath関数完全不使用版！")
+player.say("§e--- コマンド一覧 ---")
+player.say("§b!bird_hd - 500×500 超高精細ハチドリ")
+player.say("§c!bird_ultra - 1000×1000 究極精細ハチドリ")
+player.say("§f!nazca_hd - ヘルプを表示")
