@@ -3,7 +3,19 @@
 
 def draw_chessboard():
     """8x8のチェス盤を作成"""
-    player.say("チェス盤を作成します...")
+    player.say("=== CheckerCraft 開始 ===")
+
+    # エージェントをテレポート（位置を固定）
+    agent.teleport_to_player()
+    player.say("エージェントを配置しました")
+    player.say("（作成中に動いても大丈夫です）")
+
+    # ステップ1: 整地
+    player.say("ステップ1: 整地中... (24x24x10ブロック)")
+    player.execute("execute @e[type=agent] ~ ~ ~ fill ~0 ~1 ~0 ~23 ~10 ~23 air")
+
+    # ステップ2: チェス盤作成
+    player.say("ステップ2: チェス盤作成中...")
 
     # 8x8のチェス盤を描画（相対座標を使用）
     for row in range(8):
@@ -21,11 +33,13 @@ def draw_chessboard():
             x2 = x1 + 2
             z2 = z1 + 2
 
-            # マスを塗りつぶす（足元に作成）
-            cmd = "fill ~" + str(x1) + " ~0 ~" + str(z1) + " ~" + str(x2) + " ~0 ~" + str(z2) + " " + block
+            # マスを塗りつぶす（エージェントの位置を基準に作成）
+            cmd = "execute @e[type=agent] ~ ~ ~ fill ~" + str(x1) + " ~0 ~" + str(z1) + " ~" + str(x2) + " ~0 ~" + str(z2) + " " + block
             player.execute(cmd)
 
-    player.say("完成！ 8x8のチェス盤ができました")
+    # ステップ3: 完成
+    player.say("ステップ3: 完成！")
+    player.say("8x8のチェス盤 (24x24ブロック) ができました")
 
 # チャットコマンドを登録
 player.on_chat("checkercraft", draw_chessboard)
